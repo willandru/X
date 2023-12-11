@@ -53,25 +53,18 @@ scene.add(character2);
 document.addEventListener('keydown', (event) => {
   const speed = 0.2; // Adjust the speed as needed
 
-  const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
-  const right = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
-
   switch (event.code) {
     case 'ArrowUp':
-      character1.position.z += speed * forward.z;
-      character1.position.x += speed * forward.x;
+      if (character1.position.z - speed > -9.5) character1.position.z -= speed;
       break;
     case 'ArrowDown':
-      character1.position.z -= speed * forward.z;
-      character1.position.x -= speed * forward.x;
+      if (character1.position.z + speed < 9.5) character1.position.z += speed;
       break;
     case 'ArrowLeft':
-      character1.position.x -= speed * right.x;
-      character1.position.z -= speed * right.z;
+      if (character1.position.x - speed > -9.5) character1.position.x -= speed;
       break;
     case 'ArrowRight':
-      character1.position.x += speed * right.x;
-      character1.position.z += speed * right.z;
+      if (character1.position.x + speed < 9.5) character1.position.x += speed;
       break;
   }
 });
@@ -80,25 +73,18 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keydown', (event) => {
   const speed = 0.2; // Adjust the speed as needed
 
-  const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
-  const right = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
-
   switch (event.key) {
     case 'w':
-      character2.position.z += speed * forward.z;
-      character2.position.x += speed * forward.x;
+      if (character2.position.z - speed > -9.5) character2.position.z -= speed;
       break;
     case 's':
-      character2.position.z -= speed * forward.z;
-      character2.position.x -= speed * forward.x;
+      if (character2.position.z + speed < 9.5) character2.position.z += speed;
       break;
     case 'a':
-      character2.position.x -= speed * right.x;
-      character2.position.z -= speed * right.z;
+      if (character2.position.x - speed > -9.5) character2.position.x -= speed;
       break;
     case 'd':
-      character2.position.x += speed * right.x;
-      character2.position.z += speed * right.z;
+      if (character2.position.x + speed < 9.5) character2.position.x += speed;
       break;
   }
 });
