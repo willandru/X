@@ -39,22 +39,39 @@ const character2 = new THREE.Mesh(character2Geometry, character2Material);
 character2.position.set(3, 0.5, 0); // Start at a different position
 scene.add(character2);
 
+
+
+
+
+
+
+
+
+
+
 // Handle keyboard input for character1 movement (Arrow keys)
 document.addEventListener('keydown', (event) => {
   const speed = 0.2; // Adjust the speed as needed
 
+  const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+  const right = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
+
   switch (event.code) {
     case 'ArrowUp':
-      if (character1.position.z - speed > -9.5) character1.position.z -= speed;
+      character1.position.z += speed * forward.z;
+      character1.position.x += speed * forward.x;
       break;
     case 'ArrowDown':
-      if (character1.position.z + speed < 9.5) character1.position.z += speed;
+      character1.position.z -= speed * forward.z;
+      character1.position.x -= speed * forward.x;
       break;
     case 'ArrowLeft':
-      if (character1.position.x - speed > -9.5) character1.position.x -= speed;
+      character1.position.x -= speed * right.x;
+      character1.position.z -= speed * right.z;
       break;
     case 'ArrowRight':
-      if (character1.position.x + speed < 9.5) character1.position.x += speed;
+      character1.position.x += speed * right.x;
+      character1.position.z += speed * right.z;
       break;
   }
 });
@@ -63,21 +80,38 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keydown', (event) => {
   const speed = 0.2; // Adjust the speed as needed
 
+  const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+  const right = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
+
   switch (event.key) {
     case 'w':
-      if (character2.position.z - speed > -9.5) character2.position.z -= speed;
+      character2.position.z += speed * forward.z;
+      character2.position.x += speed * forward.x;
       break;
     case 's':
-      if (character2.position.z + speed < 9.5) character2.position.z += speed;
+      character2.position.z -= speed * forward.z;
+      character2.position.x -= speed * forward.x;
       break;
     case 'a':
-      if (character2.position.x - speed > -9.5) character2.position.x -= speed;
+      character2.position.x -= speed * right.x;
+      character2.position.z -= speed * right.z;
       break;
     case 'd':
-      if (character2.position.x + speed < 9.5) character2.position.x += speed;
+      character2.position.x += speed * right.x;
+      character2.position.z += speed * right.z;
       break;
   }
 });
+
+
+
+
+
+
+
+
+
+
 
 // Set up animation loop
 const animate = function () {
