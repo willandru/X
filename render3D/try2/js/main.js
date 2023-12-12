@@ -1,7 +1,16 @@
-// your_script.js
+// main.js
 
+//import { initScene } from './scene.js';
+//import { initScene } from './js/scene.js';
+//import { initScene } from 'scene.js';
+//import { initCamera } from './js/camera.js';
+//import { initRenderer } from './js/renderer.js';
+import { initScene } from './scene.js';
 // Set up scene, camera, and renderer
 const scene = new THREE.Scene();
+
+// Initialize scene, camera, and renderer
+//const { scene, camera, renderer } = initScene();
 
 // Use an orthographic camera for an isometric view
 const camera = new THREE.OrthographicCamera(
@@ -13,8 +22,8 @@ const camera = new THREE.OrthographicCamera(
 );
 
 // Position the camera
-camera.position.set(10, 8, 10);
-camera.lookAt(new THREE.Vector3(0, 0, 0));
+camera.position.set(4, 10, 10);
+camera.lookAt(new THREE.Vector3(0,0, 0));
 
 // Handle window resize
 window.addEventListener('resize', () => {
@@ -39,7 +48,7 @@ const grid = new THREE.GridHelper(20, 20);
 scene.add(grid);
 
 // Create a floor
-const floorGeometry = new THREE.PlaneGeometry(20, 20);
+const floorGeometry = new THREE.PlaneGeometry(20, 20, 10, 10);
 const floorMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaaa, side: THREE.DoubleSide });
 const floor = new THREE.Mesh(floorGeometry, floorMaterial);
 floor.rotation.x = -Math.PI / 2;
@@ -63,7 +72,7 @@ let movementVector1 = new THREE.Vector3(0, 0, 0);
 
 // Handle keyboard input for character1 movement (Arrow keys)
 document.addEventListener('keydown', (event) => {
-  const speed = 0.01; // Adjust the speed as needed
+  const speed = 0.1; // Adjust the speed as needed
 
   switch (event.code) {
     case 'ArrowUp':
