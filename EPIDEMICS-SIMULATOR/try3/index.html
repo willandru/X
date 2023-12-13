@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three.js Example</title>
+
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #collision-counter {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+    }
+
+    #addBoxButton {
+      position: absolute;
+      top: 50px;
+      left: 10px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button id="addBoxButton">Add Blue Box</button>
+  <p id="collision-counter">Collisions: 0</p>
+
+  <!-- Include Three.js library -->
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
+  </script>
+
+  <!-- Include your scripts -->
+  <script type="module" src="./scene-setup.js"></script>
+  <script type="module" src="./character-setup.js"></script>
+  <script type="module" src="./blue-box-setup.js"></script>
+  <script type="module" src="./collision.js"></script>
+  <script type="module" src="./animation-loop.js"></script>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

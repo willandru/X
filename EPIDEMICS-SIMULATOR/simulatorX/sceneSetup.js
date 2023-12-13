@@ -9,18 +9,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Position the camera
-camera.position.set(0, 5, 10);
-camera.lookAt(new THREE.Vector3(0, 0, 0));
-
-// Handle window resize
-window.addEventListener('resize', () => {
-  const newWidth = window.innerWidth;
-  const newHeight = window.innerHeight;
-
-  camera.aspect = newWidth / newHeight;
-  camera.updateProjectionMatrix();
-
-  renderer.setSize(newWidth, newHeight);
-});
+camera.position.z = 5;
 
 export { scene, camera, renderer };
