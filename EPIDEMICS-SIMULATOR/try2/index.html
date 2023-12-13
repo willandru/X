@@ -9,7 +9,12 @@
     </style>
 </head>
 <body>
-    <script src="https://threejs.org/build/three.min.js"></script>
-    <script src="app.js" defer></script>
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
+        window.THREE = THREE;
+    </script>
+    <script type="module" src="sceneSetup.js" defer></script>
+    <script type="module" src="createCube.js" defer></script>
+    <script type="module" src="app.js" defer></script>
 </body>
 </html>
