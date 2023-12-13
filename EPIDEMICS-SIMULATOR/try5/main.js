@@ -39,35 +39,13 @@ const cubeMaterials = [
     new THREE.MeshBasicMaterial({ color: 0xffffff }), // Back face (white)
 ];
 const cube = new THREE.Mesh(cubeGeometry, cubeMaterials);
+cube.position.y = cubeGeometry.parameters.height / 2; // Adjust the height based on your cube size
 scene.add(cube);
 
-// Set up mouse state
-const mouseState = {
-    x: 0,
-    y: 0,
-    isClicked: false,
-    rotationSpeed: 0.01,
-};
+// Set up initial camera offset
+const offset = new THREE.Vector3(0, 2, -5);
 
-// Handle mouse movement
-document.addEventListener('mousemove', (event) => {
-    mouseState.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouseState.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-    if (mouseState.isClicked) {
-        const speed = 0.00;
-        cube.rotation.y -= mouseState.x * speed;
-    }
-});
-
-// Handle mouse click
-document.addEventListener('mousedown', () => {
-    mouseState.isClicked = true;
-});
-
-document.addEventListener('mouseup', () => {
-    mouseState.isClicked = false;
-});
 
 // Handle keyboard input
 const keyboardState = {
@@ -118,15 +96,17 @@ const update = () => {
     const speed_move = 0.05;
     const speed_rot = 0.01;
 
+    const newPosition = cube.position.clone();
+
     if (keyboardState.forward) {
         const forwardVector = new THREE.Vector3(0, 0, speed_move);
         forwardVector.applyQuaternion(cube.quaternion);
-        cube.position.add(forwardVector);
+        newPosition.add(forwardVector);
     }
     if (keyboardState.backward) {
         const backwardVector = new THREE.Vector3(0, 0, -speed_move);
         backwardVector.applyQuaternion(cube.quaternion);
-        cube.position.add(backwardVector);
+        newPosition.add(backwardVector);
     }
     if (keyboardState.leftRotate) {
         cube.rotation.y += speed_rot;
@@ -137,20 +117,24 @@ const update = () => {
     if (keyboardState.moveLeft) {
         const leftVector = new THREE.Vector3(speed_move, 0, 0);
         leftVector.applyQuaternion(cube.quaternion);
-        cube.position.add(leftVector);
+        newPosition.add(leftVector);
     }
     if (keyboardState.moveRight) {
         const rightVector = new THREE.Vector3(-speed_move, 0, 0);
         rightVector.applyQuaternion(cube.quaternion);
-        cube.position.add(rightVector);
+        newPosition.add(rightVector);
     }
 
-    // Ensure the cube stays on the floor
-    cube.position.y = Math.max(0.5, cube.position.y);
+    // Ensure the cube stays within the grid and floor boundaries
+    const halfFloorSize = floorSize / 2;
+
+    newPosition.x = Math.min(halfFloorSize, Math.max(-halfFloorSize, newPosition.x));
+    newPosition.z = Math.min(halfFloorSize, Math.max(-halfFloorSize, newPosition.z));
+
+    cube.position.copy(newPosition);
 
     // Update camera position to follow the cube's black face
-    const offset = new THREE.Vector3(0, 1, -2); // Adjust the offset as needed
-    const rotatedOffset = offset.applyQuaternion(cube.quaternion);
+    rotatedOffset = offset.clone().applyQuaternion(cube.quaternion);
     camera.position.copy(cube.position).add(rotatedOffset);
     camera.lookAt(cube.position);
 
