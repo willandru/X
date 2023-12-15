@@ -1,10 +1,11 @@
+//update.js
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
 
 export function update(scene, camera, renderer, cube, offset, keyboardState, floorSize) {
-    const speed_move = 0.05;
-    const speed_rot = 0.01;
-    const jumpHeight = 1.5;
-    const jumpDuration = 0.5; // in seconds
+    const speed_move = 0.01;
+    const speed_rot = 0.03;
+    const jumpHeight = 3;
+    const jumpDuration = 0.8; // in seconds
 
     let isJumping = false;
     let jumpStartTime = 0;
